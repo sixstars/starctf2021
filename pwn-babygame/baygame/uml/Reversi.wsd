@@ -1,0 +1,89 @@
+@startuml Reversi
+class ConsoleUtil{
+    +{static} getSymbol()
+    +{static} display()
+}
+class ConsoleGame{
+    +{static} void playSession()
+    +{static} main()
+}
+class Board{
+    -maxX:int
+    -maxY:int
+    -map:HashMap
+    +Board()
+    +get():Color
+    +getTurnOverPosition()
+    +iterable()
+    +allPositionOfColor()
+    +put()
+    +getAttackingPosition()
+    
+}
+enum Color{
+    Black,White
+    +opposite():Color
+}
+class Position{
+    -x:int
+    -y:int
+    +Position()
+    +nextAlongDir()
+    +equal()
+    +{static} allDirections:Position
+    +{static} of(int x,int y)
+}
+class Computer{
+    +Computer()
+    +action()
+}
+class Person{
+    +Person()
+    +action()
+}
+class Player{
+    -color:Color
+    +Player()
+    +{abstract} action()
+    +getColor()
+}
+class Session{
+    -startTime:Time
+    -endTime:Time
+    -board:Map
+    -players:Player
+    -playernum:int
+    +Session()
+    +curPlayer()
+    +nextPlayer()
+    +turnToNext()
+    +getWinner()
+    +finished()
+    +getBoard()
+    +start()
+    +end()
+}
+class Game{
+    -sessions:List
+    -currentSession:Session
+    +start()
+    +finish()
+}
+
+Game *-- Session
+
+Session -- Board
+Session *-- Player
+
+Player <|-- Computer
+Player <|-- Person
+
+Board -- Color
+Board -- Position
+
+ConsoleUtil -- ConsoleGame
+ConsoleGame *-- Session
+ConsoleGame *-- Game
+
+
+@enduml

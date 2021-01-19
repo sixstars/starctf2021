@@ -1,0 +1,139 @@
+@startuml Sokoban
+enum State{
+    FLOOR_OUT_SIDE,WALL,FLOOR,BOX,TARGET,PLAYER,BOX_ON_TARGET
+}
+enum TileType{
+    WALL,FLOOR,TARGET
+}
+enum TileFlag{
+    NULL,PLAYER,BOX
+}
+enum Diractory{
+    UP,DOWN,LEFT,RIGHT,SITU
+}
+
+class Position{
+    -x:int
+    -y:int
+    +operator==(const Position&)
+    +opeartor+=(const Position&)
+    +getX()
+    +getY()
+    +{static} DIRS
+    +{static} of(int,int)
+}
+class Moveable{
+    -position:Position
+    -state:
+    +{virtual}move(Direction)
+    +back(Direction)
+    +getPosition()
+    +setPosition(const Position&)
+}
+class Player{
+    +move(Direction)
+    +getPreviousDirection()
+    +getPreviousPushFlag()
+    +clear()
+}
+class Box{
+    -onTarget:bool
+    +moveToTile(TileType)
+    +getOnTarget()
+}
+class Tile{
+    -position:Position
+    -type:TileType
+    -flag:TileFlag
+    +setPosition(const Position&)
+    +getPosition()
+    +setFlag(TileFlag)
+    +getType()
+    +getState()
+}
+class Map{
+    -width:int
+    -height:int
+    -tiles:TileMap
+    -MovableList:vector
+    -player:Player
+    -Tile:OUT_SIDE_TILE
+    -getTile()
+    -moveBox()
+    +getWidth()
+    +getHeight()
+    +initMap(const string&)
+    +getStateOf(const Position&)
+    +getBoxs()
+    +getPlayerPosition()
+    +back()
+}
+class Rule{
+    +isWin(const Map&)
+    +isRightMove(const Map&,Direction)
+}
+class Session{
+    -level
+    -map
+    -step
+    -isFinish
+    +move(Direction)
+    +getMap()
+    +finish()
+    +isFinish()
+    +getLevel()
+    +backToPreviousPlace()
+    +restart()
+}
+class Game{
+    -clock_t start
+    -clock_t end
+    -int curLevel
+    -{const}int MAX_LEVEL
+    -bool isFinish
+    -bool isQuit
+    -Session* curSession
+    -handleCmd(char)
+    -handleStartCmd(char)
+    -initSession()
+    -startSession()
+    -endSession()
+    +start()
+    +isFinish()
+    +getDuration()
+}
+class FileUtil{
+    +readFile()
+}
+class MapRepository{
+    +{static}MAP_PATH:string
+    +{static}MAP_DIR:string
+    +MAP_ID:enum
+    +MapBuffer:class
+    +getMap(MAP_ID)
+}
+interface Viewer{
+    +getInput()
+    +getLevel()
+    +display()
+}
+
+Game *-- Session
+Game *-- MapRepository
+Game *-- Viewer
+
+Session *-- Map
+Session *-- Rule
+
+Map *-- Tile
+Map *-- Box
+Map *-- Player
+
+Box <|-- Moveable
+Player <|-- Moveable
+
+Tile *-- Position
+
+MapRepository *-- FileUtil
+
+@enduml
