@@ -1,13 +1,15 @@
-# Favourite Architecture
+# Writeup
 
-## flag0
+## Favourite Architecture flag0 [454]
 
-It's a RE challenge.
+chacha20 + TEA
 
-## flag1
+## Favourite Architecture flag1 [465]
 
-Capture `/home/pwn/flag`.
+`gets` stack overflow. Return to your shellcode on the stack like in 90s.
 
-## flag2
+## Favourite Architecture flag2 [800]
 
-Execute `/readflag2`.
+Read/Write qemu-user memory using rv64 shellcode to bypass the "sandbox".
+
+For details, refer to `solve.py`.
