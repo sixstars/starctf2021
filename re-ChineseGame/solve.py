@@ -5,11 +5,11 @@ state = [1,1,1,1,1,1,1,1,0,1]
 inp = ""
 
 for i in table:
-    if state[i] == 1:
+    if state[i-1] == 1:
         inp += '0'
-        state[i] = 0
+        state[i-1] = 0
     else:
         inp += '0'
-        state[i] = 1
+        state[i-1] = 1
 
 print inp
