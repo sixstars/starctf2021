@@ -1,0 +1,62 @@
+version: '3'
+services:
+  app1:
+    restart: always
+    build: .
+    depends_on:
+      - mysql1
+    links:
+      - mysql1:mysql
+    container_name: web1_app1
+    ports:
+    - "5001:5000"
+  app2:
+    restart: always
+    build: .
+    depends_on:
+      - mysql2
+    links:
+      - mysql2:mysql
+    container_name: web1_app2
+    ports:
+    - "5002:5000"
+  app3:
+    restart: always
+    build: .
+    depends_on:
+      - mysql3
+    links:
+      - mysql3:mysql
+    container_name: web1_app3
+    ports:
+    - "5003:5000"
+  mysql1:
+    restart: always
+    image: mysql:5.7.16
+    container_name: web1_mysql1
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d/
+    environment:
+      - "MYSQL_ROOT_PASSWORD=root"
+      - "MYSQL_DATABASE=ctf"
+      - "TZ=Asia/Shanghai"
+  mysql2:
+    restart: always
+    image: mysql:5.7.16
+    container_name: web1_mysql2
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d/
+    environment:
+      - "MYSQL_ROOT_PASSWORD=root"
+      - "MYSQL_DATABASE=ctf"
+      - "TZ=Asia/Shanghai"
+  mysql3:
+    restart: always
+    image: mysql:5.7.16
+    container_name: web1_mysql3
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d/
+    environment:
+      - "MYSQL_ROOT_PASSWORD=root"
+      - "MYSQL_DATABASE=ctf"
+      - "TZ=Asia/Shanghai"

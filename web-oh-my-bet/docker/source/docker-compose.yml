@@ -1,0 +1,77 @@
+version: '3'
+services:
+  ftp:
+    restart: always
+    build:
+      context: ftp/
+      dockerfile: Dockerfile
+    container_name: web3_ftp
+    links:
+      - mongodb
+      - mysql
+      - redis
+    networks:
+         ctf-web3:
+            ipv4_address: 172.20.0.2
+
+  mysql:
+    restart: always
+    build:
+      context: mysql/
+      dockerfile: Dockerfile
+    container_name: web3_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: starctf123456
+    networks:
+         ctf-web3:
+            ipv4_address: 172.20.0.3
+
+  redis:
+    restart: always
+    build:
+      context: redis/
+      dockerfile: Dockerfile
+    container_name: web3_redis
+    networks:
+         ctf-web3:
+            ipv4_address: 172.20.0.4
+
+  mongodb:
+    restart: always
+    build:
+      context: mongodb/
+      dockerfile: Dockerfile
+    container_name: web3_mongodb
+    networks:
+         ctf-web3:
+            ipv4_address: 172.20.0.5
+
+
+  web:
+    restart: always
+    build:
+      context: web/
+      dockerfile: Dockerfile
+    container_name: web3_web
+    ports:
+      - 8088:5000
+    depends_on:
+      - ftp
+      - mysql
+      - mongodb
+      - redis
+    links:
+      - ftp
+      - mysql
+      - mongodb
+      - redis
+    networks:
+         ctf-web3:
+            ipv4_address: 172.20.0.6
+
+networks:
+   ctf-web3:
+      ipam:
+         config:
+         - subnet: 172.20.0.0/16
+

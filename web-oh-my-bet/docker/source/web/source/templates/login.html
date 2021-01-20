@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="stylesheet" href="../static/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <title>You give, I give!</title>
+</head>
+<body>
+    <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">You give, I give!</h1>
+
+        <div class="row">
+      <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+
+        <div class="card card-signin my-5">
+          <div class="card-body">
+            <h5 class="card-title text-center"></h5>
+            <form method="post" id="create_team" class="form-signin">
+                <div class="form-label-group">
+                <p>
+                    {{ form.username.label }}<br>
+                    {{ form.username(size=128, class="form-control") }}<br>
+                </p>
+                <p>
+                    {{ form.password.label }}<br>
+                    {{ form.password(size=128, class="form-control") }}<br>
+                </p>
+                   <p>
+                       {{ form.avatar.label }}<br>
+                    <select id="avatar" name="avatar" class="form-control" aria-label=".form-select-lg example" onchange="return ChangeAvatar()">
+                      <option value="1.png">One</option>
+                      <option value="2.png">Two</option>
+                      <option value="3.png">Three</option>
+                      <option value="4.png">Four</option>
+                      <option value="5.png">Five</option>
+                      <option value="6.png">Six</option>
+                    </select>
+                   </p>
+                    <div class="container">
+                        <p class="text-center">
+                            <img id="avatar-img" class="avatar-img" src="static/img/avatar/1.png">
+                        </p>
+                    </div>
+
+              </div>
+                    <p>{{ form.submit(class="btn btn-lg btn-primary btn-block text-uppercase") }}</p>
+                    {% if message%}
+                        <p class="text-center">{{message}}</p>
+                    {% endif %}
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <script>
+        function ChangeAvatar() {
+            var value = document.getElementById("avatar").value
+            console.log(value)
+            var avatar_img = document.getElementById("avatar-img")
+            avatar_img.src = "static/img/avatar/" + value
+        }
+
+    </script>
+</body>
+

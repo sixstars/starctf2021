@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="stylesheet" href="../static/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <title>You give, I give!</title>
+
+    <ul class="nav justify-content-end">
+        <img src="data:image/png;base64,{{avatar}}" class="img-thumbnail" width="40" height="40">
+  <li class="nav-item">
+    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">{{username}}</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" href="/shake_and_dice">Shake and Dice</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/flag_points_29_points">FLAG POINTS ~ 29 POINTS</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" href="/logout">Logout</a>
+  </li>
+</ul>
+</head>
+
+<br><br><br>
+<body>
+    {% block body%}
+    {% endblock %}
+</body>

@@ -1,0 +1,8 @@
+flask
+flask_session
+flask_sqlalchemy
+flask_redis
+flask_wtf
+gunicorn
+pymongo
+pymysql

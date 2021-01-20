@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="stylesheet" href="../static/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    {% if title %}
+    <title>{{ title }} - *CTFNote</title>
+    {% else %}
+    <title>Welcome to *CTFNote</title>
+    {% endif %}
+</head>
+<body>
+
+
+
+
+{% if session['username']==FALSE %}
+<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+      <h5 class="my-0 mr-md-auto font-weight-normal">*CTFNote</h5>
+      <nav class="my-2 my-md-0 mr-md-3">
+          <a class="p-2 text-dark" href="/index">Home</a>
+          <a class="p-2 text-dark" href="/create_note">Create note</a>
+      </nav>
+</div>
+{% elif session['username'] %}
+<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+      <h5 class="my-0 mr-md-auto font-weight-normal">*CTFNote</h5>
+
+      <nav class="my-2 my-md-0 mr-md-3">
+        <a class="p-2 text-dark">Welcome back {{ session['username'] }}</a>
+        <a class="p-2 text-dark" href="/index">Home</a>
+        <a class="p-2 text-dark" href="/my_notes">My notes</a>
+        <a class="p-2 text-dark" href="/create_note">Create note</a>
+        <a class="p-2 text-dark" href="/logout">Logout</a>
+      </nav>
+
+</div>
+{% endif %}
+
+
+{% block content %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,15 @@
+{
+  "secret_key":"f4545478ee86$%^&&%$#",
+  "DEBUG": false,
+  "SESSION_TYPE": "mongodb",
+  "REMOTE_MONGO_IP": "172.20.0.5",
+  "REMOTE_MONGO_PORT": 27017,
+  "SESSION_MONGODB_DB": "admin",
+  "SESSION_MONGODB_COLLECT": "sessions",
+  "SESSION_PERMANENT": true,
+  "SESSION_USE_SIGNER": false,
+  "SESSION_KEY_PREFIX": "session:",
+  "SQLALCHEMY_DATABASE_URI": "mysql+pymysql://root:starctf123456@172.20.0.3:3306/ctf?charset=utf8",
+  "SQLALCHEMY_TRACK_MODIFICATIONS": true,
+  "REDIS_URL": "redis://@172.20.0.4:6379/0"
+}

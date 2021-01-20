@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block content %}
+<body>
+
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+  <h1 class="display-4">Create your Note</h1>
+  <p class="lead">Create your own note for everybody or only for you</p>
+</div>
+<div class="row">
+      <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+
+        <div class="card card-signin my-5">
+          <div class="card-body">
+            <h5 class="card-title text-center"></h5>
+            <form method="post" id="create">
+
+                <div class="form-label-group">
+                  {{ form.hidden_tag() }}
+                <p>
+                    {{ form.username.label }}<br>
+                    {{ form.username(size=128, class="form-control") }}<br>
+                </p>
+              </div>
+
+              <div class="form-label-group">
+                  {{ form.hidden_tag() }}
+                <p>
+                    {{ form.title.label }}<br>
+                    {{ form.title(size=128, class="form-control") }}<br>
+                </p>
+              </div>
+
+                <div class="form-label-group">
+                  <p>
+                      {{ form.body.label }}<br>
+                      {{ form.body(size=256, class="form-control") }}<br>
+                  </p>
+  <div class="form-check">
+                    <p>{{ form.private() }}
+                       {{ form.private.label }}</p>
+                </div>
+
+                    <p>{{ form.submit(class="btn btn-lg btn-primary btn-block text-uppercase") }}</p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+</body>
+
+
+
+{% endblock %}
