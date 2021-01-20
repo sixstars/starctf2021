@@ -54,7 +54,7 @@ In a nutshell:
 
 1. use `consoleread()` to modify user stack
 2. use `usertrapret()` to switch back to user mode
-3. return to shellcode in user mode with ASLR
+3. return to shellcode in user mode without ASLR
 
 There is (maybe) another thing to take care of, the buffer size of xv6 console is `0x80`:
 
