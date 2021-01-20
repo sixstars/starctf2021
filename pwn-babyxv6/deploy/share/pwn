@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# exec 2>/dev/null
+
+temp_dir="/tmp/dir_$RANDOM"
+mkdir $temp_dir
+cp kernel fs.img pwn wrapper $temp_dir
+cd $temp_dir
+
+# timeout 30 stdbuf -i0 -o0 -e0 ./wrapper ./run.sh
+# timeout 30 stdbuf -i0 -o0 -e0 ./wrapper qemu-system-riscv64 -machine virt -bios none -kernel kernel -m 128M -smp 1 -nographic -drive file=fs.img,if=none,format=raw,id=x0 -device virtio-blk-device,      drive=x0,bus=virtio-mmio-bus.0 -monitor null
+timeout 30 ./wrapper qemu-system-riscv64 \
+	-machine virt -bios none -kernel kernel -m 128M -smp 1 \
+	-nographic -drive file=fs.img,if=none,format=raw,id=x0 \
+	-device virtio-blk-device,drive=x0,bus=virtio-mmio-bus.0 -monitor null
+
+rm -rf $temp_dir
