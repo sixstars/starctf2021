@@ -1,2 +1,2 @@
 #!/bin/bash
-./qemu-riscv64 -strace main
+./qemu-riscv64 main
