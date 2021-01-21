@@ -1,0 +1,86 @@
+<head>
+    <script src="/jquery-3.5.1.min.js"></script>
+    <script src="/cookie.js"></script>
+    <style>
+        body {
+            font-size: 24px;
+        }
+
+        .input {
+            height: 30px;
+            border: 1px solid black;
+            border-radius: 8px;
+        }
+
+        .button {
+            background-color: #4CAF50;
+            /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 12px;
+        }
+
+        .red {
+            color: red;
+        }
+
+        #coupon {
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>lottery system</h2>
+    <div>username:</div>
+    <input name="username" id="username" type="text" class="input" value="" />
+    <div>password:</div>
+    <input name="password" id="password" type="password" class="input" value="" />
+    <div id="msg" class="red"></div>
+    <input type="submit" name="login" id="login" class="button" value="login" />
+    <input type="submit" name="register" id="register" class="button" value="register" />
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#login').click(req)
+            $('#register').click(req)
+
+            function req() {
+                var btn = $(this)
+                btn.unbind('click')
+                $('#msg').text('')
+                $.ajax({
+                    type: "POST",
+                    url: '/user/' + btn.attr('name'),
+                    data: {
+                        username: $("#username").val(),
+                        password: $("#password").val(),
+                    },
+                    success: function (data) {
+                        var msg = data.message
+                        if (!msg) {
+                            if (btn.attr('name') === 'login') {
+                                setCookie('api_token', data.user.api_token)
+                                document.location.pathname = '/user.html'
+                            }
+                            msg = 'success'
+                        }
+                        $('#msg').text(msg)
+                        alert(msg)
+                        btn.click(req)
+                    },
+                    error: function (data) {
+                        alert("unknown error")
+                        btn.click(req)
+                    }
+                })
+            }
+        })
+    </script>
+</body>

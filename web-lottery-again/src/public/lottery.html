@@ -1,0 +1,95 @@
+<head>
+    <script src="/jquery-3.5.1.min.js"></script>
+    <script src="/cookie.js"></script>
+    <style>
+        body {
+            font-size: 24px;
+        }
+
+        .input {
+            height: 30px;
+            border: 1px solid black;
+            border-radius: 8px;
+        }
+
+        .button {
+            background-color: #4CAF50;
+            /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 12px;
+        }
+
+        .red {
+            color: red;
+        }
+
+        #coupon {
+            width: 100%;
+        }
+
+    </style>
+</head>
+
+<body>
+    <h2>lottery system</h2>
+    <div>user:</div>
+    <input name="user" id="user" type="text" class="input" value="" readonly />
+    <div>coin:</div>
+    <input name="coin" id="coin" type="text" class="input" value="" readonly />
+    <div id="msg" class="red"></div>
+    <input type="submit" name="charge" id="charge" class="button" value="charge" />
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var enc = document.location.hash.substr(1)
+            $.ajax({
+                type: "POST",
+                url: '/lottery/info',
+                data: {
+                    enc: enc,
+                },
+                success: function (data) {
+                    $('#user').val(data.info.user)
+                    $('#coin').val(data.info.coin)
+                },
+                error: function (data) {
+                    alert("unknown error")
+                }
+            })
+
+            $('#charge').click(charge)
+            function charge() {
+                var btn = $(this)
+                btn.unbind('click')
+                $('#msg').text('')
+                $.ajax({
+                    type: "POST",
+                    url: '/lottery/charge',
+                    data: {
+                        user: $("#user").val(),
+                        coin: $("#coin").val(),
+                        enc: enc,
+                    },
+                    success: function (data) {
+                        var msg = data.message || 'success'
+                        $('#msg').text(msg)
+                        alert(msg)
+                        btn.click(charge)
+                    },
+                    error: function (data) {
+                        alert("unknown error")
+                        btn.click(charge)
+                    }
+                })
+            }
+        })
+
+    </script>
+</body>

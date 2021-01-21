@@ -1,0 +1,123 @@
+<head>
+    <script src="/jquery-3.5.1.min.js"></script>
+    <script src="/cookie.js"></script>
+    <style>
+        body {
+            font-size: 24px;
+        }
+
+        .input {
+            height: 30px;
+            border: 1px solid black;
+            border-radius: 8px;
+        }
+
+        .button {
+            background-color: #4CAF50;
+            /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 12px;
+        }
+
+        .red {
+            color: red;
+        }
+
+        #coupon {
+            width: 100%;
+        }
+
+    </style>
+</head>
+
+<body>
+    <h2>lottery system</h2>
+    <div>coin: <span id="coin"></span></div>
+    <div>lottery price: 100</div>
+    <input type="submit" name="lottery" id="lottery" class="button" value="buy lottery" />
+    <div>flag price: 9999</div>
+    <input type="submit" name="flag" id="flag" class="button" value="buy flag" />
+    <div id="msg" class="red"></div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var api_token = getCookie('api_token');
+            $.ajax({
+                type: "GET",
+                url: '/user/info',
+                data: {
+                    api_token: api_token,
+                },
+                success: function (data) {
+                    $('#coin').text(data.user.coin)
+                },
+                error: function (data) {
+                    alert("unknown error")
+                }
+            })
+
+            $('#lottery').click(buyLottery)
+            function buyLottery() {
+                var btn = $(this)
+                btn.unbind('click')
+                $('#msg').text('')
+                $.ajax({
+                    type: "POST",
+                    url: '/lottery/buy',
+
+                    data: {
+                        api_token: api_token,
+                    },
+                    success: function (data) {
+                        var msg = data.message
+                        if (msg) {
+                            $('#msg').text(msg)
+                            alert(msg)
+                            btn.click(buyLottery)
+                            return
+                        }
+                        document.location.hash = data.enc
+                        document.location.pathname = '/lottery.html'
+                    },
+                    error: function (data) {
+                        alert("unknown error")
+                        btn.click(buyLottery)
+                    }
+                })
+            }
+
+            $('#flag').click(buyFlag)
+            function buyFlag() {
+                var btn = $(this)
+                btn.unbind('click')
+                $('#msg').text('')
+                $.ajax({
+                    type: "POST",
+                    url: '/flag',
+
+                    data: {
+                        api_token: api_token,
+                    },
+                    success: function (data) {
+                        var msg = data.message || data.flag
+                        $('#msg').text(msg)
+                        alert(msg)
+                        btn.click(buyFlag)
+                    },
+                    error: function (data) {
+                        alert("unknown error")
+                        btn.click(buyFlag)
+                    }
+                })
+            }
+        })
+
+    </script>
+</body>
