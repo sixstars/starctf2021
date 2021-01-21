@@ -1,2 +1,3 @@
 # starctf2021
-official source code of *CTF2021
+
+Official source code and writeups of \*CTF2021
