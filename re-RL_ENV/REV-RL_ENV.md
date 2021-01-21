@@ -1,9 +1,16 @@
 # REV-RL_ENV
-题目是围棋，是一个3*4的棋盘，需要走出一个双方平局的完美定式出来，实际上这个是有两个解的，因为最后是根据棋盘上的棋子计算的hash值来判断是否正确。所以是有镜像的两组解。分别为：
+ZH:题目是围棋，是一个3*4的棋盘，需要走出一个双方平局的完美定式出来，实际上这个是有两个解的，因为最后是根据棋盘上的棋子计算的hash值来判断是否正确。所以是有镜像的两组解。分别为：
+	{C2\_B2\_D2\_C3\_B1\_C1\_D1\_A2\_B3\_C1\_B1\_A3}
+	{B1\_D2\_C2\_C1\_D2\_C3\_A2\_B2\_D1\_A2\_B1\_A3}
+EN:The game'core is Go, which is a 3*4 board, and needs to come out with a perfect formula for a draw between the two sides. There are actually two solutions to this, because in the end it is the hash value calculated from the pieces on the board that determines whether it is correct or not. So there are two sets of solutions with mirror images. They are:
 	{C2\_B2\_D2\_C3\_B1\_C1\_D1\_A2\_B3\_C1\_B1\_A3}
 	{B1\_D2\_C2\_C1\_D2\_C3\_A2\_B2\_D1\_A2\_B1\_A3}
 
+
+
+
 ```
+//by https://github.com/yenw/ShiroGo
 int main()
 {
     std::cout << "Hello, RL!" << std::endl << "Flag: ";
